@@ -1,18 +1,13 @@
 import React from 'react';
-import { theme } from '../../constants';
+import { theme } from '../../../constants';
 import {
   BlockCommon,
   ButtonCommon,
   LoadingCommon,
   TextCommon,
-} from '../common';
+} from '../../common';
 
-const AddCancelBtnsLayout = ({
-  addHandler,
-  cancelHandler,
-  loading,
-  update,
-}) => {
+const AddElementBtns = ({ onPressAdd, onPressCancel, loading, update }) => {
   return (
     <BlockCommon
       d_absolute
@@ -22,7 +17,7 @@ const AddCancelBtnsLayout = ({
     >
       <ButtonCommon
         color={'danger'}
-        onPress={cancelHandler}
+        onPress={onPressCancel}
         width={theme.sizes.padding * 3}
         m1
       >
@@ -31,7 +26,7 @@ const AddCancelBtnsLayout = ({
         </TextCommon>
       </ButtonCommon>
       <ButtonCommon
-        onPress={addHandler}
+        onPress={onPressAdd}
         color={'primary'}
         width={theme.sizes.padding * 3}
       >
@@ -49,4 +44,4 @@ const AddCancelBtnsLayout = ({
   );
 };
 
-export default AddCancelBtnsLayout;
+export default AddElementBtns;

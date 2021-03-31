@@ -7,6 +7,7 @@ import CardCommon from './CardCommon';
 import NavPageCommon from './NavPageCommon';
 import LoadingCommon from './LoadingCommon';
 import ListCardCommon from './ListCardCommon';
+import TextEditableCommon from './TextEditableCommon';
 
 export {
   BlockCommon,
@@ -18,4 +19,5 @@ export {
   NavPageCommon,
   LoadingCommon,
   ListCardCommon,
+  TextEditableCommon,
 };

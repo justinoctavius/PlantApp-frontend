@@ -3,6 +3,7 @@ import CategoryStore, { CategoryContext } from './CategoryStore';
 import ImageStore, { ImageContext } from './ImageStore';
 import ShopStore, { ShopContext } from './ShopStore';
 import ProductStore, { ProductContext } from './ProductStore';
+import DetailsStore, { DetailsContext } from './DetailsStore';
 
 export {
   AuthStore,
@@ -15,4 +16,6 @@ export {
   ShopContext,
   ProductStore,
   ProductContext,
+  DetailsStore,
+  DetailsContext,
 };

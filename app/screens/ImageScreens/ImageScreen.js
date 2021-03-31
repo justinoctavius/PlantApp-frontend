@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CardCommon, ListCardCommon } from '../../components/common';
-import FatherElementLayout from '../../components/layouts/FatherElementLayout';
+import { ManageElementsWrapperLayout } from '../../components/layouts/';
 import { env } from '../../config';
 import { ImageContext } from '../../context/stores';
 
 const ImageScreen = ({ navigation }) => {
   const { imageState, imagesState, imageActions } = useContext(ImageContext);
   const [cardSelected, setCardSelected] = useState('');
-
-  const _getAllImageHandler = async () => {
-    await imageActions.getAllImage();
-  };
 
   const _addImageHandler = () => {
     navigation.navigate('ImageOption', {
@@ -31,7 +27,7 @@ const ImageScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    _getAllImageHandler();
+    imageActions.getAllImage();
   }, [imageState.payload]);
 
   const renderImageCard = (item) => {
@@ -47,8 +43,8 @@ const ImageScreen = ({ navigation }) => {
   };
 
   return (
-    <FatherElementLayout
-      title={'Image'}
+    <ManageElementsWrapperLayout
+      title={'Image Administrator'}
       pressAddLabel={'Add Image'}
       onPressAdd={_addImageHandler}
       onPressDelete={_deleteImageHandler}
@@ -60,10 +56,12 @@ const ImageScreen = ({ navigation }) => {
         data={imagesState.payload}
         error={imagesState.error}
         loading={imagesState.loading}
+        headerTitle={'Images'}
         keyExtractor={(item) => item.image_id}
         renderItem={renderImageCard}
+        padding
       />
-    </FatherElementLayout>
+    </ManageElementsWrapperLayout>
   );
 };
 

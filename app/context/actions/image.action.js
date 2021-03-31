@@ -16,11 +16,20 @@ const deleteImageAction = (image_id) => async (dispatch) => {
   await dispatchAction(dispatch, query);
 };
 
-const updateImageAction = (image_id, name, description, image) => async (
-  dispatch
-) => {
+const getImageAction = (image_id) => async (dispatch) => {
+  const query = async () => await imageApi.get(image_id);
+  await dispatchAction(dispatch, query);
+};
+
+const updateImageAction = (
+  oldImage_url,
+  image_id,
+  name,
+  description,
+  image
+) => async (dispatch) => {
   const query = async () =>
-    await imageApi.update(image_id, name, description, image);
+    await imageApi.update(oldImage_url, image_id, name, description, image);
   await dispatchAction(dispatch, query);
 };
 
@@ -29,4 +38,5 @@ export {
   addImageAction,
   deleteImageAction,
   updateImageAction,
+  getImageAction,
 };

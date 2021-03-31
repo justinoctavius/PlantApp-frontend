@@ -1,28 +1,44 @@
 import React, { useContext, useEffect } from 'react';
-import { FlatList } from 'react-native';
-import { ShopContext } from '../../context/stores/ShopStore';
 import {
   BlockCommon,
   TextCommon,
   CardCommon,
   LoadingCommon,
   ErrorCommon,
+  ListCardCommon,
 } from '../../components/common';
-import { CategoryContext } from '../../context/stores';
+import { DetailsContext } from '../../context/stores';
 import { env } from '../../config';
 
-const ShopDetailsScreen = ({ route }) => {
-  const { shopState, shopActions } = useContext(ShopContext);
-  const { getAllCategoryState, categoryActions } = useContext(CategoryContext);
+const ShopDetailsScreen = ({ navigation, route }) => {
+  const { categoriesState, shopState, detailsActions } = useContext(
+    DetailsContext
+  );
 
-  const getShopHandler = async () => {
-    await shopActions?.getShop(route.params?.shop_id);
-    await categoryActions?.getAllCategory(route.params?.shop_id);
+  const navigateCategoryDetails = async (category_id) => {
+    navigation.navigate('CategoryDetails', {
+      category_id,
+      shop_id: route.params?.shop_id,
+    });
+  };
+
+  const _renderCategory = (item) => {
+    return (
+      <CardCommon
+        title={item.name}
+        image_url={`${env.BACKEND_IMAGE}/${item.image?.image_url}`}
+        onPress={() => navigateCategoryDetails(item.category_id)}
+      />
+    );
   };
 
   useEffect(() => {
-    getShopHandler();
+    detailsActions.getShop(route.params?.shop_id);
   }, [route.params?.shop_id]);
+
+  useEffect(() => {
+    detailsActions?.getCategories(route.params?.shop_id);
+  }, [shopState.payload]);
 
   if (shopState.error) {
     return <ErrorCommon text={shopState.error} />;
@@ -33,31 +49,20 @@ const ShopDetailsScreen = ({ route }) => {
   }
 
   return (
-    <BlockCommon p1>
-      <BlockCommon d_flex={false} f_space={'between'}>
-        <TextCommon title semibold>
-          {shopState.payload?.name}
-        </TextCommon>
+    <BlockCommon>
+      <BlockCommon p1 d_flex={false} f_space={'between'}>
+        <TextCommon title>{shopState.payload?.name}</TextCommon>
         <TextCommon gray>{shopState.payload?.description}</TextCommon>
       </BlockCommon>
-      <BlockCommon p1>
-        {getAllCategoryState.payload?.length > 0 ? (
-          <FlatList
-            data={getAllCategoryState.payload}
-            keyExtractor={(item) => item.category_id}
-            horizontal={false}
-            numColumns={2}
-            renderItem={({ item }) => (
-              <CardCommon
-                title={item.name}
-                image_url={`${env.BACKEND_IMAGE}/${item.image.image_url}`}
-              />
-            )}
-          />
-        ) : (
-          <ErrorCommon text={'There are not categories :('} />
-        )}
-      </BlockCommon>
+      <ListCardCommon
+        data={categoriesState.payload}
+        headerTitle={'Categories'}
+        error={categoriesState.error}
+        keyExtractor={(item) => item.category_id}
+        loading={categoriesState.loading}
+        renderItem={_renderCategory}
+        padding
+      />
     </BlockCommon>
   );
 };

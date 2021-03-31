@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { BlockCommon, InputCommon } from '../../components/common';
-import { ImagePickerLayout } from '../../components/layouts';
-import ElementOptionLayout from '../../components/layouts/ElementOptionLayout';
+import {
+  AddElementWrapperLayout,
+  ImagePickerLayout,
+} from '../../components/layouts';
 import { CategoryContext } from '../../context/stores';
 import { validate } from '../../utils';
 
@@ -69,7 +71,7 @@ const CategoryOptionScreen = ({ navigation, route }) => {
   }, [categoryState.payload]);
 
   return (
-    <ElementOptionLayout
+    <AddElementWrapperLayout
       _addElementHandler={_addCategoryHandler}
       _cancelElementHandler={_cancelCategoryHandler}
       _updateElementHandler={_updateCategoryHandler}
@@ -101,7 +103,7 @@ const CategoryOptionScreen = ({ navigation, route }) => {
           />
         </BlockCommon>
       </KeyboardAvoidingView>
-    </ElementOptionLayout>
+    </AddElementWrapperLayout>
   );
 };
 

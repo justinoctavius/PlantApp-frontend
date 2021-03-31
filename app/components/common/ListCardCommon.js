@@ -13,6 +13,7 @@ const ListCardCommon = ({
   renderItem,
   loading,
   error,
+  padding,
 }) => {
   if (error) {
     return <ErrorCommon text={error} />;
@@ -34,7 +35,7 @@ const ListCardCommon = ({
           </TextCommon>
         )}
         contentContainerStyle={{
-          paddingHorizontal: theme.sizes.padding,
+          paddingHorizontal: padding ? theme.sizes.padding : 0,
           minHeight: '100%',
         }}
         renderItem={({ item }) => renderItem(item)}

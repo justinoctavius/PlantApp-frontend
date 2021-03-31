@@ -9,6 +9,7 @@ const BlockCommon = (props) => {
     d_flex,
     d_card,
     d_absolute,
+    d_relative,
     //flex layout
     f_row,
     f_column,
@@ -48,6 +49,7 @@ const BlockCommon = (props) => {
     d_flex === false && { flex: 0 }, // reset / disable flex
     d_card && styles.card,
     d_absolute && styles.absolute,
+    d_relative && styles.relative,
     //flex layout
     f_row && styles.row,
     f_column && styles.column,
@@ -116,6 +118,9 @@ const styles = StyleSheet.create({
   absolute: {
     position: 'absolute',
   },
+  relative: {
+    position: 'relative',
+  },
   //styles
   shadow: {
     shadowColor: theme.colors.black,
@@ -136,6 +141,7 @@ const styles = StyleSheet.create({
   white: { backgroundColor: theme.colors.white },
   gray: { backgroundColor: theme.colors.gray },
   gray2: { backgroundColor: theme.colors.gray2 },
+  gray3: { backgroundColor: theme.colors.gray3 },
 });
 
 export default BlockCommon;

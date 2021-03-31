@@ -22,8 +22,8 @@ const ProductStore = ({ children }) => {
     addProduct: async (category_id, product) => {
       await addProductAction(category_id, product)(productDispatch);
     },
-    getProduct: async (Product_id) => {
-      await getProductAction(Product_id)(productDispatch);
+    getProduct: async (product_id) => {
+      await getProductAction(product_id)(productDispatch);
     },
     updateProduct: async (product_id, product) => {
       await updateProductAction(product_id, product)(productDispatch);

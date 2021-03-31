@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { theme } from '../../constants';
+import { AuthContext } from '../../context/stores';
 import BlockCommon from './BlockCommon';
 import TextCommon from './TextCommon';
 
 const CardCommon = (props) => {
+  const { authState } = useContext(AuthContext);
   const { title, image_url, onPress, stretch, selected, children } = props;
+  const [isAdmin, setIsAdmin] = useState(authState.payload?.admin);
 
   const imageStyles = [
     styles.cardImage,
     stretch && styles.stretch,
-    selected && stretch && { width: 155 },
+    selected && isAdmin && stretch && { width: 155 },
   ];
   const cardBoxStyles = [
     styles.cardBox,
-    selected && {
-      borderWidth: 3,
-      borderColor: theme.colors.secondary,
-    },
+    selected &&
+      isAdmin && {
+        borderWidth: 3,
+        borderColor: theme.colors.secondary,
+      },
   ];
 
   return (

@@ -1,16 +1,12 @@
-import {
-  IMAGE_FAIL,
-  IMAGE_REQUEST,
-  IMAGE_SUCCESS,
-} from '../../constants/action';
+import { FAIL, REQUEST, SUCCESS } from '../../constants/action';
 
 const imageReducer = (state, action) => {
   switch (action.type) {
-    case IMAGE_REQUEST:
+    case REQUEST:
       return { loading: true, payload: null, error: null };
-    case IMAGE_SUCCESS:
+    case SUCCESS:
       return { loading: false, payload: action.payload, error: null };
-    case IMAGE_FAIL:
+    case FAIL:
       return { loading: false, payload: null, error: action.error };
     default:
       return state;
@@ -19,11 +15,11 @@ const imageReducer = (state, action) => {
 
 const imagesReducer = (state, action) => {
   switch (action.type) {
-    case IMAGE_REQUEST:
+    case REQUEST:
       return { loading: true, payload: null, error: null };
-    case IMAGE_SUCCESS:
+    case SUCCESS:
       return { loading: false, payload: action.payload, error: null };
-    case IMAGE_FAIL:
+    case FAIL:
       return { loading: false, payload: null, error: action.error };
     default:
       return state;

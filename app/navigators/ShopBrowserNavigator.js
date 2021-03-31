@@ -7,28 +7,34 @@ import ShopBrowserScreen from '../screens/ShopBrowserScreens/ShopBrowserScreen';
 import ShopDetailsScreen from '../screens/ShopBrowserScreens/ShopDetailsScreen';
 import CategoryDetailsScreen from '../screens/ShopBrowserScreens/CategoryDetailsScreen';
 import { theme } from '../constants';
+import { DetailsStore } from '../context/stores';
 
 const Tap = createStackNavigator();
 
 const ShopBrowserNavigator = () => {
   return (
-    <Tap.Navigator
-      initialRouteName={'ShopBrowser'}
-      screenOptions={{
-        headerTitle: null,
-        headerStyle: styles.headerStyle,
-        animationEnabledheaderBackImage: () => (
-          <Image source={require('./../../assets/icons/back.png')} />
-        ),
-        headerBackTitle: null,
-        headerLeftContainerStyle: styles.headerLeftContainerStyle,
-        headerRightContainerStyle: styles.headerRightContainerStyle,
-      }}
-    >
-      <Tap.Screen name={'ShopBrowser'} component={ShopBrowserScreen} />
-      <Tap.Screen name={'ShopDetails'} component={ShopDetailsScreen} />
-      <Tap.Screen name={'CategoryDetails'} component={CategoryDetailsScreen} />
-    </Tap.Navigator>
+    <DetailsStore>
+      <Tap.Navigator
+        initialRouteName={'ShopBrowser'}
+        screenOptions={{
+          headerTitle: null,
+          headerStyle: styles.headerStyle,
+          animationEnabledheaderBackImage: () => (
+            <Image source={require('./../../assets/icons/back.png')} />
+          ),
+          headerBackTitle: null,
+          headerLeftContainerStyle: styles.headerLeftContainerStyle,
+          headerRightContainerStyle: styles.headerRightContainerStyle,
+        }}
+      >
+        <Tap.Screen name={'ShopBrowser'} component={ShopBrowserScreen} />
+        <Tap.Screen name={'ShopDetails'} component={ShopDetailsScreen} />
+        <Tap.Screen
+          name={'CategoryDetails'}
+          component={CategoryDetailsScreen}
+        />
+      </Tap.Navigator>
+    </DetailsStore>
   );
 };
 

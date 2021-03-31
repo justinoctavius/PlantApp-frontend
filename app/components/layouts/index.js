@@ -1,15 +1,19 @@
+import ManageElementsWrapperLayout from './ManageElementsWrapper/';
+import AddElementWrapperLayout from './AddElementWrapper';
 import ImagePickerLayout from './ImagePickerLayout';
 import HeaderLayout from './HeaderLayout';
-import FatherElementLayout from './FatherElementLayout';
-import AddCancelBtnsLayout from './AddCancelBtnsLayout';
 import ProductCardLayout from './ProductCardLayout';
-import ElementOptionLayout from './ElementOptionLayout';
+import ImagePickerSquareLayout from './ImagePickerSquareLayout';
+import UserInfoLayout from './UserInfoLayout';
+import ModalProductLayout from './ModalProduct/';
 
 export {
   ImagePickerLayout,
   HeaderLayout,
-  FatherElementLayout,
-  AddCancelBtnsLayout,
+  ManageElementsWrapperLayout,
   ProductCardLayout,
-  ElementOptionLayout,
+  AddElementWrapperLayout,
+  ImagePickerSquareLayout,
+  UserInfoLayout,
+  ModalProductLayout,
 };

@@ -1,128 +1,112 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  BlockCommon,
-  ErrorCommon,
-  InputCommon,
-  TextCommon,
-} from '../../components/common';
-import { Ionicons } from '@expo/vector-icons';
-import { Dimensions, Image, StyleSheet } from 'react-native';
+import { BlockCommon, InputCommon } from '../../components/common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
 import { useImage } from '../../components/hooks';
 import { ImageContext } from '../../context/stores';
 import { validate } from '../../utils';
-import { theme } from '../../constants';
-import AddCancelBtnsLayout from '../../components/layouts/AddCancelBtnsLayout';
+import {
+  AddElementWrapperLayout,
+  ImagePickerSquareLayout,
+} from '../../components/layouts';
+import { env } from '../../config';
 
-const ImageOptionScreen = ({ navigation }) => {
+const ImageOptionScreen = ({ navigation, route }) => {
+  const [update, setUpdate] = useState(route.params?.update);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, pickImage, setImage] = useImage();
-  const { addImageState, imageActions } = useContext(ImageContext);
+  const { imageState, imageActions } = useContext(ImageContext);
 
-  const _addImageHandler = async () => {
-    if (addImageState.loading) return null;
+  const _validate = async () => {
     const isValid = await validate.notEmty([name]);
     const isImageValid = image?.uri;
-    if (isValid && isImageValid) {
+    if (isValid && isImageValid) return true;
+  };
+
+  const _addImageHandler = async () => {
+    if (await _validate()) {
       await imageActions.addImage(image, name, description);
+      _resetFields();
     }
   };
 
   const _cancelImageHandler = () => {
-    navigation.navigate('Image', {
-      newImage: addImageState.payload?.image_id,
-    });
+    navigation.goBack();
   };
 
-  const _restartFields = () => {
-    if (addImageState.payload) {
-      setName('');
-      setDescription('');
-      setImage(null);
+  const _updateImageHandler = async () => {
+    await imageActions.updateImage(
+      imageState.payload?.image_url,
+      imageState.payload?.image_id,
+      name,
+      description,
+      image
+    );
+  };
+
+  const _getImage = async () => {
+    if (update) {
+      await imageActions.getImage(route.params?.image_id);
     }
   };
 
+  const _setFields = async () => {
+    if (update) {
+      setName(imageState.payload?.name);
+      setDescription(imageState.payload?.description);
+    }
+  };
+
+  const _resetFields = () => {
+    setName('');
+    setDescription('');
+    setImage(null);
+  };
+
   useEffect(() => {
-    _restartFields();
-  }, [addImageState.payload]);
+    _getImage();
+  }, []);
+
+  useEffect(() => {
+    _setFields();
+  }, [imageState.payload]);
 
   return (
-    <BlockCommon p1>
-      {/* header */}
-      <BlockCommon d_flex={1}>
-        <TextCommon title>
-          Add Image <Ionicons name="add-circle" size={theme.sizes.title} />
-        </TextCommon>
-      </BlockCommon>
-
-      {/* body */}
-      <BlockCommon d_flex={7}>
-        <KeyboardAwareScrollView style={styles.keyboardAwareScrollView}>
-          {/* inputs */}
-          <BlockCommon>
-            <InputCommon
-              label="Name"
-              value={name}
-              require
-              onChangeText={(e) => setName(e)}
-            />
-            <InputCommon
-              label="Description"
-              value={description}
-              multiline
-              numberOfLines={3}
-              onChangeText={(e) => setDescription(e)}
-            />
-          </BlockCommon>
-          {/* image picker */}
-          <TouchableOpacity onPress={() => pickImage()}>
-            <BlockCommon style={styles.imagePicker}>
-              {image ? (
-                <Image
-                  source={{ uri: image.uri }}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: theme.sizes.radius,
-                  }}
-                />
-              ) : (
-                <TextCommon center title secondary>
-                  Pick an image
-                </TextCommon>
-              )}
-            </BlockCommon>
-          </TouchableOpacity>
-          {/* messages */}
-          <BlockCommon>
-            {addImageState.error && <ErrorCommon text={addImageState.error} />}
-          </BlockCommon>
-        </KeyboardAwareScrollView>
-      </BlockCommon>
-
-      {/* buttons */}
-      <AddCancelBtnsLayout
-        addHandler={_addImageHandler}
-        cancelHandler={_cancelImageHandler}
-        loading={addImageState.loading}
-      />
-    </BlockCommon>
+    <AddElementWrapperLayout
+      _addElementHandler={_addImageHandler}
+      _cancelElementHandler={_cancelImageHandler}
+      _updateElementHandler={_updateImageHandler}
+      loading={imageState.loading}
+      error={imageState.error}
+      title={'Image'}
+      update={update}
+    >
+      <KeyboardAwareScrollView>
+        <BlockCommon>
+          <InputCommon
+            label="Name"
+            value={name}
+            require
+            onChangeText={(e) => setName(e)}
+          />
+          <InputCommon
+            label="Description"
+            value={description}
+            multiline
+            numberOfLines={3}
+            onChangeText={(e) => setDescription(e)}
+          />
+        </BlockCommon>
+        <ImagePickerSquareLayout
+          image_url={
+            image?.uri ||
+            `${env.BACKEND_IMAGE}/${imageState.payload?.image_url}`
+          }
+          onPress={() => pickImage()}
+        />
+      </KeyboardAwareScrollView>
+    </AddElementWrapperLayout>
   );
 };
-
-const styles = StyleSheet.create({
-  imagePicker: {
-    height: Dimensions.get('screen').height / 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderStyle: 'dashed',
-    borderWidth: 2,
-    borderRadius: theme.sizes.radius,
-    borderColor: theme.colors.gray,
-  },
-});
 
 export default ImageOptionScreen;

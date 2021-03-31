@@ -94,7 +94,16 @@ export default class InputCommon extends Component {
   }
 
   render() {
-    const { email, phone, number, secure, error, style, ...props } = this.props;
+    const {
+      email,
+      phone,
+      number,
+      secure,
+      error,
+      style,
+      value,
+      ...props
+    } = this.props;
 
     const { toggleSecure } = this.state;
     const isSecure = toggleSecure ? false : secure;
@@ -126,6 +135,7 @@ export default class InputCommon extends Component {
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType={inputType}
+            value={value}
             onBlur={() => this.validate()}
             {...props}
           />

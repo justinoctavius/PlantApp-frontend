@@ -12,7 +12,7 @@ import { categoriesReducer, categoryReducer } from '../reducers';
 export const CategoryContext = createContext({});
 
 const CategoryStore = ({ children }) => {
-  const [categoriesState, getAllCategoryDispatch] = useReducer(
+  const [categoriesState, categoriesDispatch] = useReducer(
     categoriesReducer,
     {}
   );
@@ -20,8 +20,9 @@ const CategoryStore = ({ children }) => {
 
   const categoryActions = useMemo(() => ({
     getAllCategory: async (shop_id) => {
-      await getAllCategoryAction(shop_id)(getAllCategoryDispatch);
+      await getAllCategoryAction(shop_id)(categoriesDispatch);
     },
+
     getCategory: async (category_id) => {
       await getCategoryAction(category_id)(categoryDispatch);
     },

@@ -1,12 +1,12 @@
-import { SHOP_FAIL, SHOP_REQUEST, SHOP_SUCCESS } from '../../constants/action';
+import { FAIL, REQUEST, SUCCESS } from '../../constants/action';
 
 const shopReducer = (state, action) => {
   switch (action.type) {
-    case SHOP_REQUEST:
+    case REQUEST:
       return { loading: true, payload: null, error: null };
-    case SHOP_SUCCESS:
+    case SUCCESS:
       return { loading: false, payload: action.payload, error: null };
-    case SHOP_FAIL:
+    case FAIL:
       return { loading: false, payload: null, error: action.error };
     default:
       return state;

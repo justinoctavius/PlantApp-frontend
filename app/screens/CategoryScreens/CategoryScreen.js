@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ListCardCommon } from '../../components/common';
-import FatherElementLayout from '../../components/layouts/FatherElementLayout';
 import { CategoryContext, ProductContext } from '../../context/stores';
-import { ProductCardLayout } from '../../components/layouts';
+import {
+  ProductCardLayout,
+  ManageElementsWrapperLayout,
+} from '../../components/layouts';
 
 const CategoryScreen = ({ navigation, route }) => {
   const [categoryId, setCategoryId] = useState(route.params?.category_id);
@@ -13,27 +15,19 @@ const CategoryScreen = ({ navigation, route }) => {
   );
 
   useEffect(() => {
-    _getCategoryHandler();
-  }, []);
-
-  useEffect(() => {
     navigation.setOptions({
       headerShown: true,
       headerTitle: categoryState.payload?.name,
     });
-  }, [categoryState.payload]);
+  }, [categoryId]);
 
   useEffect(() => {
-    _getProductsHandler();
+    categoryActions.getCategory(categoryId);
+  }, []);
+
+  useEffect(() => {
+    productActions.getAllProduct(categoryId);
   }, [productState.payload]);
-
-  const _getCategoryHandler = async () => {
-    await categoryActions.getCategory(categoryId);
-  };
-
-  const _getProductsHandler = async () => {
-    await productActions.getAllProduct(categoryId);
-  };
 
   const _addProductHandler = async () => {
     navigation.navigate('ProductOption', {
@@ -57,14 +51,14 @@ const CategoryScreen = ({ navigation, route }) => {
     return (
       <ProductCardLayout
         cardSelected={cardSelected}
-        setCardSelected={setCardSelected}
+        setCardSelected={() => setCardSelected(item.product_id)}
         item={item}
       />
     );
   };
 
   return (
-    <FatherElementLayout
+    <ManageElementsWrapperLayout
       description={categoryState.payload?.description}
       pressAddLabel={'Add product'}
       onPressAdd={_addProductHandler}
@@ -82,8 +76,9 @@ const CategoryScreen = ({ navigation, route }) => {
         renderItem={_renderCard}
         loading={productsState.loading}
         error={productsState.error}
+        padding
       />
-    </FatherElementLayout>
+    </ManageElementsWrapperLayout>
   );
 };
 

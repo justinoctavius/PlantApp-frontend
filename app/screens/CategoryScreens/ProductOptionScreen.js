@@ -3,7 +3,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { BlockCommon, InputCommon } from '../../components/common';
 import {
   ImagePickerLayout,
-  ElementOptionLayout,
+  AddElementWrapperLayout,
 } from '../../components/layouts';
 import { ProductContext } from '../../context/stores';
 import { validate } from '../../utils';
@@ -83,7 +83,7 @@ const ProductOptionScreen = ({ navigation, route }) => {
   }, [productState.payload]);
 
   return (
-    <ElementOptionLayout
+    <AddElementWrapperLayout
       _addElementHandler={_addProductHandler}
       _cancelElementHandler={_cancelProductHandler}
       _updateElementHandler={_updateProductHandler}
@@ -129,7 +129,7 @@ const ProductOptionScreen = ({ navigation, route }) => {
           />
         </BlockCommon>
       </KeyboardAvoidingView>
-    </ElementOptionLayout>
+    </AddElementWrapperLayout>
   );
 };
 

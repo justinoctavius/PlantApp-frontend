@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CardCommon, ListCardCommon } from '../../components/common';
-import { FatherElementLayout } from '../../components/layouts';
+import { ManageElementsWrapperLayout } from '../../components/layouts';
 import { env } from '../../config';
 import {
   AuthContext,
@@ -8,21 +8,13 @@ import {
   ShopContext,
 } from '../../context/stores';
 
-const ShopScreen = ({ navigation, route }) => {
+const ShopScreen = ({ navigation }) => {
   const [cardSelected, setCardSelected] = useState('');
   const { authState } = useContext(AuthContext);
-  const { userShopState, shopActions } = useContext(ShopContext);
+  const { shopState, buyProductState, shopActions } = useContext(ShopContext);
   const { categoriesState, categoryState, categoryActions } = useContext(
     CategoryContext
   );
-
-  const _getShopHandler = async () => {
-    await shopActions.getUserShop(authState.payload?.shop?.shop_id);
-  };
-
-  const _getCategoriesHandler = async () => {
-    await categoryActions.getAllCategory(authState.payload?.shop?.shop_id);
-  };
 
   const _deleteCategoryHandler = async () => {
     await categoryActions.deleteCategory(cardSelected);
@@ -39,7 +31,7 @@ const ShopScreen = ({ navigation, route }) => {
   const _addCategoryHandler = () => {
     navigation.navigate('CategoryOption', {
       update: false,
-      shop_id: userShopState.payload?.shop_id,
+      shop_id: shopState.payload?.shop_id,
     });
   };
 
@@ -60,25 +52,25 @@ const ShopScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    _getShopHandler();
-  }, []);
+    shopActions.getShop(authState.payload?.shop?.shop_id);
+  }, [buyProductState.payload]);
 
   useEffect(() => {
-    _getCategoriesHandler();
-  }, [categoryState.payload]);
+    categoryActions.getAllCategory(authState.payload?.shop?.shop_id);
+  }, [buyProductState.payload, categoryState.payload]);
 
   return (
-    <FatherElementLayout
+    <ManageElementsWrapperLayout
       onPressAdd={_addCategoryHandler}
       onPressDelete={_deleteCategoryHandler}
       onPressUpdate={_updateCategoryHandler}
-      title={userShopState.payload?.name}
-      description={userShopState.payload?.description}
+      title={shopState.payload?.name}
+      description={shopState.payload?.description}
       pressAddLabel={'Add category'}
       cardSelected={cardSelected}
       setCardSelected={setCardSelected}
-      loading={userShopState.loading}
-      error={userShopState.error}
+      loading={shopState.loading}
+      error={shopState.error}
     >
       <ListCardCommon
         data={categoriesState.payload}
@@ -87,8 +79,9 @@ const ShopScreen = ({ navigation, route }) => {
         renderItem={_renderCard}
         loading={categoriesState.loading}
         error={categoriesState.error}
+        padding
       />
-    </FatherElementLayout>
+    </ManageElementsWrapperLayout>
   );
 };
 

@@ -12,7 +12,7 @@ import HomeNavigator from './HomeNavigator';
 
 import * as theme from '../constants/theme';
 import { Image, StyleSheet } from 'react-native';
-import { AuthContext } from '../context/stores';
+import { AuthContext, ShopStore } from '../context/stores';
 
 const Tab = createStackNavigator();
 
@@ -21,35 +21,37 @@ const AuthNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerTitle: null,
-          headerStyle: styles.headerStyle,
-          animationEnabledheaderBackImage: () => (
-            <Image source={require('./../../assets/icons/back.png')} />
-          ),
-          headerBackTitle: null,
-          headerLeftContainerStyle: styles.headerLeftContainerStyle,
-          headerRightContainerStyle: styles.headerRightContainerStyle,
-        }}
-      >
-        {!authState.payload ? (
-          <>
-            <Tab.Screen name="Welcome" component={WelcomeScreen} />
-            <Tab.Screen name="SignIn" component={SignInScreen} />
-            <Tab.Screen name="SignUp" component={SignUpScreen} />
-          </>
-        ) : (
-          <>
-            <Tab.Screen
-              name="Home"
-              component={HomeNavigator}
-              initialParams={{ shop_id: authState.payload?.shop?.shop_id }}
-            />
-            <Tab.Screen name="Setting" component={SettingScreen} />
-          </>
-        )}
-      </Tab.Navigator>
+      <ShopStore>
+        <Tab.Navigator
+          screenOptions={{
+            headerTitle: null,
+            headerStyle: styles.headerStyle,
+            animationEnabledheaderBackImage: () => (
+              <Image source={require('./../../assets/icons/back.png')} />
+            ),
+            headerBackTitle: null,
+            headerLeftContainerStyle: styles.headerLeftContainerStyle,
+            headerRightContainerStyle: styles.headerRightContainerStyle,
+          }}
+        >
+          {!authState.payload ? (
+            <>
+              <Tab.Screen name="Welcome" component={WelcomeScreen} />
+              <Tab.Screen name="SignIn" component={SignInScreen} />
+              <Tab.Screen name="SignUp" component={SignUpScreen} />
+            </>
+          ) : (
+            <>
+              <Tab.Screen
+                name="Home"
+                component={HomeNavigator}
+                initialParams={{ shop_id: authState.payload?.shop?.shop_id }}
+              />
+              <Tab.Screen name="Setting" component={SettingScreen} />
+            </>
+          )}
+        </Tab.Navigator>
+      </ShopStore>
     </NavigationContainer>
   );
 };

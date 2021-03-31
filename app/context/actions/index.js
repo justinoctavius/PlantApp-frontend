@@ -25,10 +25,13 @@ import {
   getShopAction,
   getAllShopAction,
   getGlobalShopAction,
+  buyProductAction,
+  updateShopAction,
 } from './shop.action';
 
 import {
   getAllImageAction,
+  getImageAction,
   addImageAction,
   deleteImageAction,
   updateImageAction,
@@ -50,8 +53,11 @@ export {
   getShopAction,
   getAllShopAction,
   getGlobalShopAction,
+  buyProductAction,
+  updateShopAction,
   //image
   getAllImageAction,
+  getImageAction,
   addImageAction,
   updateImageAction,
   deleteImageAction,

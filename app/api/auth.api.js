@@ -11,7 +11,15 @@ authApi.signIn = async (username, password) => {
     email: '',
     password,
   });
-  return data.data;
+  const { payload, status } = data.data;
+  if (status === 200) {
+    await AsyncStorage.setItem(
+      SESSION,
+      JSON.stringify({ token: payload.token, user_id: payload.user.user_id })
+    );
+  }
+  const { msg } = data.data;
+  return { msg, payload: payload.user, status };
 };
 
 authApi.signUp = async (username, password, email) => {
@@ -20,7 +28,15 @@ authApi.signUp = async (username, password, email) => {
     password,
     email,
   });
-  return data.data;
+  const { payload, status } = data.data;
+  if (status === 200) {
+    await AsyncStorage.setItem(
+      SESSION,
+      JSON.stringify({ token: payload.token, user_id: payload.user.user_id })
+    );
+  }
+  const { msg } = data.data;
+  return { msg, payload: payload.user, status };
 };
 
 authApi.signOut = async () => {

@@ -3,6 +3,7 @@ import {
   addImageAction,
   deleteImageAction,
   getAllImageAction,
+  getImageAction,
   updateImageAction,
 } from '../actions';
 import { imageReducer, imagesReducer } from '../reducers';
@@ -17,14 +18,23 @@ function ImageStore({ children }) {
     getAllImage: async () => {
       await getAllImageAction()(imagesDispatch);
     },
+    getImage: async (image_id) => {
+      await getImageAction(image_id)(imageDispatch);
+    },
     addImage: async (image, name, description) => {
       await addImageAction(image, name, description)(imageDispatch);
     },
     deleteImage: async (image_id) => {
       await deleteImageAction(image_id)(imageDispatch);
     },
-    updateImage: async (image_id, name, description, image) => {
-      await updateImageAction(image_id, name, description, image);
+    updateImage: async (oldImage_url, image_id, name, description, image) => {
+      await updateImageAction(
+        oldImage_url,
+        image_id,
+        name,
+        description,
+        image
+      )(imageDispatch);
     },
   }));
 

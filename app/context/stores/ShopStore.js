@@ -1,28 +1,36 @@
 import React, { createContext, useMemo, useReducer } from 'react';
-import { getShopAction } from '../actions';
-import { getAllShopAction, getGlobalShopAction } from '../actions/shop.action';
+import {
+  buyProductAction,
+  getAllShopAction,
+  getShopAction,
+  updateShopAction,
+} from '../actions';
 import { shopReducer } from '../reducers';
 
 export const ShopContext = createContext({});
 
 const ShopStore = ({ children }) => {
-  const [shopState, shopDispath] = useReducer(shopReducer, {});
-  const [shopBrowserState, shopBrowserDispath] = useReducer(shopReducer, {});
-  const [globalShopState, globalShopDispath] = useReducer(shopReducer, {});
-  const [userShopState, userShopDispath] = useReducer(shopReducer, {});
+  const [shopsState, shopsDispatch] = useReducer(shopReducer, {});
+  const [shopState, shopDispatch] = useReducer(shopReducer, {});
+  const [buyProductState, buyProductDispatch] = useReducer(shopReducer, {});
 
   const shopActions = useMemo(() => ({
     getShop: async (shop_id) => {
-      await getShopAction(shop_id)(shopDispath);
+      await getShopAction(shop_id)(shopDispatch);
+    },
+    updateShop: async (shop_id, name, description) => {
+      await updateShopAction(shop_id, name, description)(shopDispatch);
     },
     getAllShop: async (page) => {
-      await getAllShopAction(page)(shopBrowserDispath);
+      await getAllShopAction(page)(shopsDispatch);
     },
-    getGlobalShop: async () => {
-      await getGlobalShopAction()(globalShopDispath);
-    },
-    getUserShop: async (shop_id) => {
-      await getShopAction(shop_id)(userShopDispath);
+    buyProduct: async (buyer_shop_id, seller_shop_id, product_id, quantity) => {
+      await buyProductAction(
+        buyer_shop_id,
+        seller_shop_id,
+        product_id,
+        quantity
+      )(buyProductDispatch);
     },
   }));
 
@@ -30,9 +38,8 @@ const ShopStore = ({ children }) => {
     <ShopContext.Provider
       value={{
         shopState,
-        shopBrowserState,
-        userShopState,
-        globalShopState,
+        shopsState,
+        buyProductState,
         shopActions,
       }}
     >

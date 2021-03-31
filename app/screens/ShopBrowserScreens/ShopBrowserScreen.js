@@ -5,23 +5,20 @@ import {
   LoadingCommon,
   NavPageCommon,
   CardCommon,
+  ErrorCommon,
 } from '../../components/common';
-import { ShopContext } from '../../context/stores/ShopStore';
+import { env } from '../../config';
+import { DetailsContext } from '../../context/stores';
 
 const ShopBrowserScreen = ({ navigation }) => {
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(null);
-  const { shopBrowserState, globalShopState, shopActions } = useContext(
-    ShopContext
+  const { shopsState, globalShopState, detailsActions } = useContext(
+    DetailsContext
   );
 
   const _setPageHandler = (nextPage) => {
     setPage(nextPage);
-  };
-
-  const _getAllShopHandler = async (page) => {
-    await shopActions.getAllShop(page);
-    await shopActions.getGlobalShop();
   };
 
   const _navigateShopDetails = (shop_id) => {
@@ -30,23 +27,34 @@ const ShopBrowserScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
-    _getAllShopHandler(page);
+  }, []);
+
+  useEffect(() => {
+    detailsActions.getGlobalShop();
+  }, []);
+
+  useEffect(() => {
+    detailsActions.getAllShop(page);
   }, [page]);
 
   useEffect(() => {
-    if (!shopBrowserState.loading && shopBrowserState.payload?.length < 20) {
+    if (!shopsState.loading && shopsState.payload?.length < 20) {
       setLimit(page - 1);
     }
-  }, [shopBrowserState.payload]);
+  }, [shopsState.payload]);
 
-  if (shopBrowserState.loading) {
+  if (shopsState.loading) {
     return <LoadingCommon size={32} />;
+  }
+
+  if (shopsState.error) {
+    return <ErrorCommon text={shopsState.error} />;
   }
 
   const _renderShop = (shop) => {
     return (
       <CardCommon
-        image_url="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX26567497.jpg"
+        image_url={`${env.BACKEND_IMAGE}/shop.jpg`}
         title={shop.name}
         onPress={() => _navigateShopDetails(shop.shop_id)}
       />
@@ -57,7 +65,7 @@ const ShopBrowserScreen = ({ navigation }) => {
     return (
       <BlockCommon f_center>
         <CardCommon
-          image_url="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX26567497.jpg"
+          image_url={`${env.BACKEND_IMAGE}/shop.jpg`}
           title={globalShopState.payload?.name}
           onPress={() => _navigateShopDetails(globalShopState.payload?.shop_id)}
         />
@@ -67,13 +75,13 @@ const ShopBrowserScreen = ({ navigation }) => {
 
   return (
     <BlockCommon>
-      <BlockCommon>
+      <BlockCommon d_flex={0.1}>
         <NavPageCommon page={page} setPage={_setPageHandler} limit={limit} />
       </BlockCommon>
 
-      <BlockCommon f_center d_flex={7}>
+      <BlockCommon f_center>
         <FlatList
-          data={shopBrowserState.payload}
+          data={shopsState.payload}
           keyExtractor={(item) => item.shop_id}
           horizontal={false}
           numColumns={2}

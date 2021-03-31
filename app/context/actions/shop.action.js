@@ -16,4 +16,31 @@ const getGlobalShopAction = () => async (dispatch) => {
   await dispatchAction(dispatch, query);
 };
 
-export { getShopAction, getAllShopAction, getGlobalShopAction };
+const updateShopAction = (shop_id, name, description) => async (dispatch) => {
+  const query = async () => await shopApi.update(shop_id, name, description);
+  await dispatchAction(dispatch, query);
+};
+
+const buyProductAction = (
+  buyer_shop_id,
+  seller_shop_id,
+  product_id,
+  quantity
+) => async (dispatch) => {
+  const query = async () =>
+    await shopApi.buyProduct(
+      buyer_shop_id,
+      seller_shop_id,
+      product_id,
+      quantity
+    );
+  await dispatchAction(dispatch, query);
+};
+
+export {
+  getShopAction,
+  getAllShopAction,
+  getGlobalShopAction,
+  buyProductAction,
+  updateShopAction,
+};
