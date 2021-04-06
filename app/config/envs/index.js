@@ -1,6 +1,6 @@
 import dev from './dev';
 import pro from './pro';
 
-const current = dev;
+const current = pro;
 
 export default current;
