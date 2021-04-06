@@ -25,15 +25,25 @@ const CardCommon = (props) => {
       },
   ];
 
+  const imageContainerStyles = [styles.imageContainer, stretch && { flex: 4 }];
+
+  const imageBoxStyles = [
+    styles.imageBox,
+    stretch && { backgroundColor: 'transparent' },
+  ];
+
   return (
     <TouchableOpacity {...props} onPress={onPress} style={cardBoxStyles}>
-      <BlockCommon d_flex={stretch ? 4 : 1} f_bottom>
-        <Image
-          source={{
-            uri: image_url,
-          }}
-          style={imageStyles}
-        />
+      <BlockCommon style={imageContainerStyles}>
+        <BlockCommon style={imageBoxStyles}>
+          <Image
+            source={{
+              uri: image_url,
+            }}
+            style={imageStyles}
+            resizeMode="contain"
+          />
+        </BlockCommon>
       </BlockCommon>
       <BlockCommon d_flex={stretch ? 0 : 1} f_middle>
         <TextCommon gray h4 center>
@@ -54,20 +64,28 @@ const styles = StyleSheet.create({
     borderRadius: theme.sizes.radius,
     shadowColor: theme.colors.black,
     shadowOffset: { width: 1, height: 1 },
-    justifyContent: 'center',
-    alignItems: 'center',
     shadowOpacity: 1,
     elevation: theme.sizes.padding / 4,
   },
   stretch: {
     width: 160,
     height: '100%',
-    borderTopLeftRadius: theme.sizes.radius,
-    borderTopRightRadius: theme.sizes.radius,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    borderRadius: 0,
   },
-  cardImage: { width: 65, height: 65, borderRadius: 100 },
+  imageContainer: {
+    flex: 1.5,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  imageBox: {
+    borderRadius: 100,
+    padding: 10,
+    backgroundColor: theme.colors.gray3,
+  },
+  cardImage: {
+    width: 55,
+    height: 55,
+  },
 });
 
 export default CardCommon;

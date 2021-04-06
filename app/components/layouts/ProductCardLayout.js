@@ -24,7 +24,7 @@ const ProductCardLayout = ({
 
 const ProductBody = ({ price, quantity }) => {
   return (
-    <BlockCommon d_flex={false} f_row f_space={'between'}>
+    <BlockCommon d_flex={false} f_row f_space={'evenly'}>
       <TextCommon center primary bold>
         <Ionicons name={'cash-sharp'} /> {price}
       </TextCommon>
