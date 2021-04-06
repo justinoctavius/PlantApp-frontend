@@ -8,18 +8,18 @@ import {
   getAllShopAction,
   getGlobalShopAction,
 } from '../actions';
-import { shopReducer } from '../reducers';
+import { reducer } from '../reducers';
 
 export const DetailsContext = createContext({});
 
 const DetailsStore = ({ children }) => {
-  const [shopState, shopDispatch] = useReducer(shopReducer, {});
-  const [shopsState, shopsDispatch] = useReducer(shopReducer, {});
-  const [categoriesState, categoriesDispatch] = useReducer(shopReducer, {});
-  const [categoryState, categoryDispatch] = useReducer(shopReducer, {});
-  const [productsState, productsDispatch] = useReducer(shopReducer, {});
-  const [productState, productDispatch] = useReducer(shopReducer, {});
-  const [globalShopState, globalShopDispatch] = useReducer(shopReducer, {});
+  const [shopState, shopDispatch] = useReducer(reducer, {});
+  const [shopsState, shopsDispatch] = useReducer(reducer, {});
+  const [categoriesState, categoriesDispatch] = useReducer(reducer, {});
+  const [categoryState, categoryDispatch] = useReducer(reducer, {});
+  const [productsState, productsDispatch] = useReducer(reducer, {});
+  const [productState, productDispatch] = useReducer(reducer, {});
+  const [globalShopState, globalShopDispatch] = useReducer(reducer, {});
 
   const detailsActions = useMemo(() => ({
     getShop: async (shop_id) => {

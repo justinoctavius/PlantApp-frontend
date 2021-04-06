@@ -22,7 +22,7 @@ const ModalProductQuantity = ({ price, quantity, userMoney, setQuantity }) => {
             color={price * quantity > userMoney ? 'danger' : 'primary'}
           >
             <Ionicons name="cash" />
-            {price * quantity}
+            {Number((price * quantity).toFixed(2))}
           </TextCommon>
         </TextCommon>
       </BlockCommon>

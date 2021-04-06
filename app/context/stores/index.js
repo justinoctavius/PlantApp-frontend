@@ -4,6 +4,7 @@ import ImageStore, { ImageContext } from './ImageStore';
 import ShopStore, { ShopContext } from './ShopStore';
 import ProductStore, { ProductContext } from './ProductStore';
 import DetailsStore, { DetailsContext } from './DetailsStore';
+import ReceiptStore, { ReceiptContext } from './ReceiptStore';
 
 export {
   AuthStore,
@@ -18,4 +19,6 @@ export {
   ProductContext,
   DetailsStore,
   DetailsContext,
+  ReceiptStore,
+  ReceiptContext,
 };

@@ -7,7 +7,7 @@ const shopApi = {};
 
 shopApi.get = async (shop_id) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/one-shop/${shop_id}`, {
+  const data = await axios.get(`${env.BACKEND_API}/shop/${shop_id}`, {
     headers: { Authorization: `Bearer ${session.token}` },
   });
   return data.data;
@@ -15,7 +15,7 @@ shopApi.get = async (shop_id) => {
 
 shopApi.getAll = async (page) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/shop/${page}`, {
+  const data = await axios.get(`${env.BACKEND_API}/shops/?page=${page}`, {
     headers: { Authorization: `Bearer ${session.token}` },
   });
   return data.data;
@@ -67,7 +67,6 @@ shopApi.buyProduct = async (
     },
     body,
   }).then((res) => res.json());
-  console.log(data);
   return data;
 };
 

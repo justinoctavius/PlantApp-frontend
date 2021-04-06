@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   BlockCommon,
   ButtonCommon,
+  ErrorCommon,
   InputCommon,
   LoadingCommon,
   TextCommon,
@@ -47,9 +48,7 @@ const SignInScreen = ({ navigation }) => {
           onChangeText={(e) => setPassword(e)}
           secure
         />
-        <TextCommon center danger>
-          {authState.error}
-        </TextCommon>
+        <ErrorCommon caption text={authState.error} />
       </BlockCommon>
       <BlockCommon>
         <ButtonCommon

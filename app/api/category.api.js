@@ -7,7 +7,7 @@ const categoryApi = {};
 
 categoryApi.getAll = async (shop_id) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/category/${shop_id}`, {
+  const data = await axios.get(`${env.BACKEND_API}/categories/${shop_id}`, {
     headers: { Authorization: `Bearer ${session.token}` },
   });
   return data.data;
@@ -56,14 +56,11 @@ categoryApi.delete = async (category_id) => {
 
 categoryApi.get = async (category_id) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(
-    `${env.BACKEND_API}/one-category/${category_id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${session.token}`,
-      },
-    }
-  );
+  const data = await axios.get(`${env.BACKEND_API}/category/${category_id}`, {
+    headers: {
+      Authorization: `Bearer ${session.token}`,
+    },
+  });
   return data.data;
 };
 

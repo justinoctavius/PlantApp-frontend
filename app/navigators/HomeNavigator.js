@@ -11,6 +11,7 @@ import ImageNavigator from './ImageNavigator';
 import ShopBrowserNavigator from './ShopBrowserNavigator';
 
 import { AuthContext, ImageStore } from '../context/stores';
+import ReceiptNavigator from './ReceiptNavigator';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -43,6 +44,7 @@ const HomeNavigator = ({ navigation }) => {
           component={ShopBrowserNavigator}
           options={{ title: 'Shops' }}
         />
+        <Tab.Screen name="Receipts" component={ReceiptNavigator} />
         {authState.payload?.admin && (
           <Tab.Screen name="Image" component={ImageNavigator} />
         )}

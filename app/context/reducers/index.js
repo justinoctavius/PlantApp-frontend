@@ -1,20 +1,16 @@
-import { categoryReducer, categoriesReducer } from './category.reducer';
-import { productReducer, productsReducer } from './product.reducer';
-import { authReducer } from './auth.reducer';
-import { shopReducer } from './shop.reducer';
-import { imageReducer, imagesReducer } from './image.reducer';
+import { FAIL, REQUEST, SUCCESS } from '../../constants/action';
 
-export {
-  authReducer,
-  //category
-  categoryReducer,
-  categoriesReducer,
-  //product
-  productReducer,
-  productsReducer,
-  //shop
-  shopReducer,
-  //image
-  imageReducer,
-  imagesReducer,
+const reducer = (state, action) => {
+  switch (action.type) {
+    case REQUEST:
+      return { loading: true, payload: null, error: null };
+    case SUCCESS:
+      return { loading: false, payload: action.payload, error: null };
+    case FAIL:
+      return { loading: false, payload: null, error: action.error };
+    default:
+      return state;
+  }
 };
+
+export { reducer };

@@ -5,14 +5,14 @@ import {
   getShopAction,
   updateShopAction,
 } from '../actions';
-import { shopReducer } from '../reducers';
+import { reducer } from '../reducers';
 
 export const ShopContext = createContext({});
 
 const ShopStore = ({ children }) => {
-  const [shopsState, shopsDispatch] = useReducer(shopReducer, {});
-  const [shopState, shopDispatch] = useReducer(shopReducer, {});
-  const [buyProductState, buyProductDispatch] = useReducer(shopReducer, {});
+  const [shopsState, shopsDispatch] = useReducer(reducer, {});
+  const [shopState, shopDispatch] = useReducer(reducer, {});
+  const [buyProductState, buyProductDispatch] = useReducer(reducer, {});
 
   const shopActions = useMemo(() => ({
     getShop: async (shop_id) => {

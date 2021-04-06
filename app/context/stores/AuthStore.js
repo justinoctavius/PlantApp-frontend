@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useMemo, useReducer } from 'react';
-import { authReducer } from '../reducers';
+import { reducer } from '../reducers';
 import {
   signInAction,
   signOutAction,
@@ -10,7 +10,7 @@ import {
 export const AuthContext = createContext();
 
 const AuthStore = ({ children }) => {
-  const [authState, authDispatch] = useReducer(authReducer, {});
+  const [authState, authDispatch] = useReducer(reducer, {});
 
   const authActions = useMemo(
     () => ({

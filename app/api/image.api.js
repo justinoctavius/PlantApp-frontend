@@ -6,7 +6,7 @@ const imageApi = {};
 
 imageApi.getAll = async () => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/image`, {
+  const data = await axios.get(`${env.BACKEND_API}/images`, {
     headers: { Authorization: `Bearer ${session.token}` },
   });
   return data.data;

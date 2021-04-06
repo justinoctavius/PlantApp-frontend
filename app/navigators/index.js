@@ -4,6 +4,7 @@ import ImageNavigator from './ImageNavigator';
 import ShopBrowserNavigator from './ShopBrowserNavigator';
 import ShopNavigator from './ShopNavigator';
 import CategoryNavigator from './CategoryNavigator';
+import ReceiptNavigator from './ReceiptNavigator';
 
 export {
   AuthNavigator,
@@ -12,4 +13,5 @@ export {
   ShopBrowserNavigator,
   ShopNavigator,
   CategoryNavigator,
+  ReceiptNavigator,
 };

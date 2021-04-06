@@ -7,7 +7,7 @@ const productApi = {};
 
 productApi.getAll = async (category_id) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/product/${category_id}`, {
+  const data = await axios.get(`${env.BACKEND_API}/products/${category_id}`, {
     headers: { Authorization: `Bearer ${session.token}` },
   });
   return data.data;
@@ -35,7 +35,7 @@ productApi.add = async (category_id, product) => {
 
 productApi.get = async (product_id) => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/one-product/${product_id}`, {
+  const data = await axios.get(`${env.BACKEND_API}/product/${product_id}`, {
     headers: {
       Authorization: `Bearer ${session.token}`,
     },

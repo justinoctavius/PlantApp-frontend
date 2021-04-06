@@ -71,6 +71,10 @@ const ImageOptionScreen = ({ navigation, route }) => {
     _setFields();
   }, [imageState.payload]);
 
+  const image_url =
+    imageState.payload?.image_url &&
+    `${env.BACKEND_IMAGE}/${imageState.payload?.image_url}`;
+
   return (
     <AddElementWrapperLayout
       _addElementHandler={_addImageHandler}
@@ -98,10 +102,7 @@ const ImageOptionScreen = ({ navigation, route }) => {
           />
         </BlockCommon>
         <ImagePickerSquareLayout
-          image_url={
-            image?.uri ||
-            `${env.BACKEND_IMAGE}/${imageState.payload?.image_url}`
-          }
+          image_url={image?.uri || image_url}
           onPress={() => pickImage()}
         />
       </KeyboardAwareScrollView>

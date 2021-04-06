@@ -6,13 +6,13 @@ import {
   getImageAction,
   updateImageAction,
 } from '../actions';
-import { imageReducer, imagesReducer } from '../reducers';
+import { reducer } from '../reducers';
 
 export const ImageContext = createContext({});
 
 function ImageStore({ children }) {
-  const [imagesState, imagesDispatch] = useReducer(imagesReducer, {});
-  const [imageState, imageDispatch] = useReducer(imageReducer, {});
+  const [imagesState, imagesDispatch] = useReducer(reducer, {});
+  const [imageState, imageDispatch] = useReducer(reducer, {});
 
   const imageActions = useMemo(() => ({
     getAllImage: async () => {

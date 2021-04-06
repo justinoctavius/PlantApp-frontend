@@ -7,13 +7,13 @@ import {
   updateProductAction,
   deleteProductAction,
 } from '../actions';
-import { productsReducer, productReducer } from '../reducers';
+import { reducer } from '../reducers';
 
 export const ProductContext = createContext({});
 
 const ProductStore = ({ children }) => {
-  const [productsState, productsDispatch] = useReducer(productsReducer, {});
-  const [productState, productDispatch] = useReducer(productReducer, {});
+  const [productsState, productsDispatch] = useReducer(reducer, {});
+  const [productState, productDispatch] = useReducer(reducer, {});
 
   const productActions = useMemo(() => ({
     getAllProduct: async (category_id) => {

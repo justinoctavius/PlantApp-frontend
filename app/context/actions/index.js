@@ -37,6 +37,8 @@ import {
   updateImageAction,
 } from './image.action';
 
+import { getReceiptAction, getAllReceiptAction } from './receipt.action';
+
 export {
   //auth
   signInAction,
@@ -67,4 +69,7 @@ export {
   getProductAction,
   deleteProductAction,
   updateProductAction,
+  //receipt
+  getAllReceiptAction,
+  getReceiptAction,
 };

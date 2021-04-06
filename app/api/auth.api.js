@@ -15,11 +15,11 @@ authApi.signIn = async (username, password) => {
   if (status === 200) {
     await AsyncStorage.setItem(
       SESSION,
-      JSON.stringify({ token: payload.token, user_id: payload.user.user_id })
+      JSON.stringify({ token: payload?.token, user_id: payload?.user?.user_id })
     );
   }
   const { msg } = data.data;
-  return { msg, payload: payload.user, status };
+  return { msg, payload: payload?.user, status };
 };
 
 authApi.signUp = async (username, password, email) => {
@@ -36,7 +36,7 @@ authApi.signUp = async (username, password, email) => {
     );
   }
   const { msg } = data.data;
-  return { msg, payload: payload.user, status };
+  return { msg, payload: payload?.user, status };
 };
 
 authApi.signOut = async () => {
@@ -46,10 +46,12 @@ authApi.signOut = async () => {
 
 authApi.restoreSession = async () => {
   const session = JSON.parse(await AsyncStorage.getItem(SESSION));
-  const data = await axios.get(`${env.BACKEND_API}/user`, {
-    headers: { Authorization: `Bearer ${session.token}` },
-  });
-  return data.data;
+  if (session.token) {
+    const data = await axios.get(`${env.BACKEND_API}/user`, {
+      headers: { Authorization: `Bearer ${session.token}` },
+    });
+    return data.data;
+  }
 };
 
 export default authApi;

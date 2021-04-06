@@ -7,16 +7,13 @@ import {
   deleteCategoryAction,
   updateCategoryAction,
 } from '../actions';
-import { categoriesReducer, categoryReducer } from '../reducers';
+import { reducer } from '../reducers';
 
 export const CategoryContext = createContext({});
 
 const CategoryStore = ({ children }) => {
-  const [categoriesState, categoriesDispatch] = useReducer(
-    categoriesReducer,
-    {}
-  );
-  const [categoryState, categoryDispatch] = useReducer(categoryReducer, {});
+  const [categoriesState, categoriesDispatch] = useReducer(reducer, {});
+  const [categoryState, categoryDispatch] = useReducer(reducer, {});
 
   const categoryActions = useMemo(() => ({
     getAllCategory: async (shop_id) => {

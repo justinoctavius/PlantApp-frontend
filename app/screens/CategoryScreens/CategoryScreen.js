@@ -19,7 +19,7 @@ const CategoryScreen = ({ navigation, route }) => {
       headerShown: true,
       headerTitle: categoryState.payload?.name,
     });
-  }, [categoryId]);
+  }, [categoryState.payload]);
 
   useEffect(() => {
     categoryActions.getCategory(categoryId);

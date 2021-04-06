@@ -14,6 +14,7 @@ const ListCardCommon = ({
   loading,
   error,
   padding,
+  numColumns = 2,
 }) => {
   if (error) {
     return <ErrorCommon text={error} />;
@@ -28,7 +29,7 @@ const ListCardCommon = ({
         data={data}
         keyExtractor={keyExtractor}
         horizontal={false}
-        numColumns={2}
+        numColumns={numColumns}
         ListHeaderComponent={() => (
           <TextCommon gray h3>
             {headerTitle}

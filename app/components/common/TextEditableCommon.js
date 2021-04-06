@@ -10,7 +10,7 @@ const TextEditableCommon = ({ label, text, setText, rightLabel = 'Edit' }) => {
 
   return (
     <BlockCommon style={styles.textStyle}>
-      <BlockCommon d_flex={false}>
+      <BlockCommon style={{ maxWidth: '90%' }}>
         {!showEditor ? (
           <>
             <TextCommon>{label}</TextCommon>
@@ -23,7 +23,7 @@ const TextEditableCommon = ({ label, text, setText, rightLabel = 'Edit' }) => {
               value={text}
               onChangeText={(e) => setText(e)}
               onSubmitEditing={() => setShowEditor(false)}
-              style={{ minWidth: Dimensions.get('screen').width / 2 }}
+              style={{ width: Dimensions.get('screen').width / 2 }}
             />
           </BlockCommon>
         )}
