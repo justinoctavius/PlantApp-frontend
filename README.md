@@ -12,11 +12,11 @@
   > Before start the app, make sure you are running the backend and setted the `BACKEND_API` and `BACKEND_IMAGE` environments
  
 ## Environments
-  The environment are setted into the [env](https://github.com/justinoctavius/shop-app-frontend/tree/main/app/config/envs) folder, 
+  The environment are setted into the [env](https://github.com/justinoctavius/PlantApp-frontend/tree/main/app/config/envs) folder, 
   there are two development environments `dev` and `pro`
   * BACKEND_API: 
     the backend where you fetch the data, see 
-    [PlantApp-backend](https://github.com/justinoctavius/shop-app-backend)
+    [PlantApp-backend](https://github.com/justinoctavius/PlantApp-backend)
   * BACKEND_IMAGE: 
     where the images are storaged
 
