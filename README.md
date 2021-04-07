@@ -18,5 +18,5 @@
     the backend where you fetch the data, see 
     [PlantApp-backend](https://github.com/justinoctavius/shop-app-backend)
   * BACKEND_IMAGE: 
-    where the images are storages
+    where the images are storaged
 
